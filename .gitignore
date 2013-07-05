@@ -1,0 +1,8 @@
+target/
+sandbox/sandbox.iml
+sandbox/sandbox.ipr
+sandbox/sandbox.iws
+.settings/
+.project
+.classpath
+*.launch
