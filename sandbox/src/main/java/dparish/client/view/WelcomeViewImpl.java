@@ -16,8 +16,6 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
 
     private static WelcomeViewImplUiBinder ourUiBinder = GWT.create(WelcomeViewImplUiBinder.class);
 
-    private Presenter presenter;
-
     @Inject
     public WelcomeViewImpl() {
         initWidget(ourUiBinder.createAndBindUi(this));
@@ -31,10 +29,5 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
     @Override
     public Widget asWidget() {
         return this;
-    }
-
-    @Override
-    public void setPresenter(Presenter p) {
-        presenter = p;
     }
 }

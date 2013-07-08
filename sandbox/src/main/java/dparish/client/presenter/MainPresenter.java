@@ -12,11 +12,14 @@ import dparish.client.view.Page;
 public class MainPresenter extends BasePresenter<MainView> implements MainView.Presenter {
 
     private WelcomePresenter welcomePresenter;
+    private BasicCanvasPresenter basicCanvasPresenter;
 
     @Inject
-    public MainPresenter(MainView view, WelcomePresenter welcomePresenter) {
+    public MainPresenter(MainView view, WelcomePresenter welcomePresenter, BasicCanvasPresenter basicCanvasPresenter) {
         super(view);
         this.welcomePresenter = welcomePresenter;
+        this.basicCanvasPresenter = basicCanvasPresenter;
+
         view.setPresenter(this);
         onPageSelected(Page.WELCOME);
     }
@@ -25,6 +28,9 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
         switch (page) {
             case WELCOME:
                 welcomePresenter.go(view().getContentPanel());
+                break;
+            case BASIC_CANVAS:
+                basicCanvasPresenter.go(view().getContentPanel());
                 break;
         }
     }

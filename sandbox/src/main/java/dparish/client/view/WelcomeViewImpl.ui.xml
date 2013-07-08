@@ -2,7 +2,10 @@
              xmlns:g='urn:import:com.google.gwt.user.client.ui'>
 
     <ui:with field="messages" type="dparish.client.resources.MainMessages"/>
-    <g:FlowPanel>
+
+    <ui:with field="res" type="dparish.client.resources.CommonResources"/>
+
+    <g:FlowPanel styleName="{res.css.contentPanel}">
         <g:Label text="{messages.welcome}"/>
     </g:FlowPanel>
 </ui:UiBinder>

@@ -1,0 +1,11 @@
+.button {
+    cursor: pointer;
+    padding: 2px;
+    margin: 3px;
+    box-shadow: 0 2px 5px #aaa;
+}
+
+.contentPanel {
+    margin: 20px;
+    background: #fff;
+}

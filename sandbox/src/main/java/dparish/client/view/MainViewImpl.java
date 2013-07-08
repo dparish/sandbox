@@ -1,14 +1,20 @@
 package dparish.client.view;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import dparish.client.resources.CommonResources;
+import dparish.client.resources.MainMessages;
 
 /**
  * @author dparish
@@ -22,11 +28,16 @@ public class MainViewImpl extends Composite implements MainView {
     @UiField
     SimplePanel content;
 
+    @UiField
+    FlowPanel leftNav;
+
     private Presenter presenter;
 
     @Inject
     public MainViewImpl() {
         initWidget(ourUiBinder.createAndBindUi(this));
+        drawNav();
+        CommonResources.INSTANCE.css().ensureInjected();
     }
 
     @Override
@@ -47,5 +58,19 @@ public class MainViewImpl extends Composite implements MainView {
     @Override
     public void setPresenter(Presenter p) {
         presenter = p;
+    }
+
+    private void drawNav() {
+        for (final Page page:Page.values()) {
+            Label navItem = new Label(MainMessages.INSTANCE.navLabel(page));
+            navItem.addClickHandler(new ClickHandler() {
+                @Override
+                public void onClick(ClickEvent clickEvent) {
+                    presenter.onPageSelected(page);
+                }
+            });
+            navItem.setStyleName(CommonResources.INSTANCE.css().button());
+            leftNav.add(navItem);
+        }
     }
 }

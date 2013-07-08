@@ -7,10 +7,4 @@ import com.google.inject.ImplementedBy;
  */
 @ImplementedBy(WelcomeViewImpl.class)
 public interface WelcomeView extends View {
-
-    void setPresenter(Presenter p);
-
-    interface Presenter {
-
-    }
 }
