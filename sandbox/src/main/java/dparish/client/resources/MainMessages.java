@@ -18,7 +18,8 @@ public interface MainMessages extends Messages {
     @DefaultMessage("Welcome")
     @AlternateMessage({
             "WELCOME", "Welcome",
-            "BASIC_CANVAS", "Basic Canvas"
+            "BASIC_CANVAS", "Basic Canvas",
+            "TANK", "Tank Game"
     })
     String navLabel(@Select Page page);
 
@@ -28,4 +29,24 @@ public interface MainMessages extends Messages {
     @Messages.DefaultMessage("Text Test")
     String textTest();
 
+    @Messages.DefaultMessage("Rotate Around Center")
+    String rotateAroundCenter();
+
+    @Messages.DefaultMessage("Tanks")
+    String tanks();
+
+    @Messages.DefaultMessage("Left")
+    String left();
+
+    @Messages.DefaultMessage("Right")
+    String right();
+
+    @Messages.DefaultMessage("Reverse")
+    String reverse();
+
+    @Messages.DefaultMessage("Start")
+    String start();
+
+    @Messages.DefaultMessage("Stop")
+    String stop();
 }

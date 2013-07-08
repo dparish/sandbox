@@ -7,5 +7,5 @@ package dparish.client.view;
  * in the nav, make sure to add to navPage in MainMessages
  */
 public enum Page {
-    WELCOME, BASIC_CANVAS;
+    WELCOME, BASIC_CANVAS, TANK;
 }

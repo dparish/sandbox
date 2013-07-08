@@ -6,14 +6,10 @@ import com.google.gwt.canvas.dom.client.Context2d;
 /**
  * @author dparish
  */
-public class BasicCanvasWorker {
-
-    private Canvas canvas;
-    private Context2d context;
+public class BasicCanvasWorker extends BaseCanvasWorker {
 
     public BasicCanvasWorker(Canvas canvas) {
-        this.canvas = canvas;
-        context = canvas.getContext2d();
+        super(canvas);
     }
 
     public void simpleRotate() {
@@ -37,12 +33,19 @@ public class BasicCanvasWorker {
         context.fillText("Canvas!", 0,0);
     }
 
-    public void clear() {
-        // This resets the rotation.
+    public void rotateCenter() {
+        context.setFillStyle("black");
+        context.fillRect(20,20,25,25);
+
         context.setTransform(1,0,0,1,0,0);
-
-        // This clears the canvas
-        context.clearRect(0, 0, canvas.getCoordinateSpaceWidth(), canvas.getCoordinateSpaceHeight());
-
+        Double angleInRadians = 45 * Math.PI / 180;
+        int x = 100;
+        int y = 100;
+        int width = 50;
+        int height = 50;
+        context.translate(x + .5*width, y+.5*height);
+        context.rotate(angleInRadians);
+        context.setFillStyle("red");
+        context.fillRect(-.5*width, -.5*height, width, height);
     }
 }

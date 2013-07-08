@@ -8,4 +8,12 @@ import com.google.gwt.resources.client.CssResource;
 public interface CommonCSS extends CssResource {
     String button();
     String contentPanel();
+
+    String clear();
+
+    String canvas();
+
+    String buttonPanel();
+
+    String floatLeft();
 }

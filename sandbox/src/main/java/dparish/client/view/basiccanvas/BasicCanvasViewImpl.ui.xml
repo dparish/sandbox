@@ -5,28 +5,13 @@
 
     <ui:with field="res" type="dparish.client.resources.CommonResources"/>
 
-    <ui:style type="dparish.client.view.basiccanvas.BasicCanvasViewImpl.Style">
-        .canvas {
-            background: #fff;
-            display: block;
-            margin: 10px;
-            box-shadow: 0 5px 15px #aaa;
-        }
-        .buttons {
-            float:left;
-        }
-        .buttonPanel {
-            padding: 0px 0px 20px 0px;
-        }
-        .clear {
-            clear: both;
-        }
-    </ui:style>
     <g:FlowPanel styleName="{res.css.contentPanel}">
-        <g:FlowPanel styleName="{style.buttonPanel}">
-            <g:Label ui:field="rotate" text="{messages.rotate}" styleName="{res.css.button} {style.buttons}"/>
-            <g:Label ui:field="text" text="{messages.textTest}" styleName="{res.css.button} {style.buttons}"/>
-            <g:SimplePanel styleName="{style.clear}"/>
+        <g:FlowPanel styleName="{res.css.buttonPanel}">
+            <g:Label ui:field="text" text="{messages.textTest}" styleName="{res.css.button} {res.css.floatLeft}"/>
+            <g:Label ui:field="rotate" text="{messages.rotate}" styleName="{res.css.button} {res.css.floatLeft}"/>
+            <g:Label ui:field="rotateCenter" text="{messages.rotateAroundCenter}"
+                     styleName="{res.css.button} {res.css.floatLeft}"/>
+            <g:SimplePanel styleName="{res.css.clear}"/>
         </g:FlowPanel>
         <g:SimplePanel ui:field="canvasContainer"/>
     </g:FlowPanel>

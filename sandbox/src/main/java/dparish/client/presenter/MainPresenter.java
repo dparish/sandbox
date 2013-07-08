@@ -13,12 +13,15 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
 
     private WelcomePresenter welcomePresenter;
     private BasicCanvasPresenter basicCanvasPresenter;
+    private TankPresenter tankPresenter;
 
     @Inject
-    public MainPresenter(MainView view, WelcomePresenter welcomePresenter, BasicCanvasPresenter basicCanvasPresenter) {
+    public MainPresenter(MainView view, WelcomePresenter welcomePresenter, BasicCanvasPresenter basicCanvasPresenter,
+                         TankPresenter tankPresenter) {
         super(view);
         this.welcomePresenter = welcomePresenter;
         this.basicCanvasPresenter = basicCanvasPresenter;
+        this.tankPresenter = tankPresenter;
 
         view.setPresenter(this);
         onPageSelected(Page.WELCOME);
@@ -32,6 +35,10 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
             case BASIC_CANVAS:
                 basicCanvasPresenter.go(view().getContentPanel());
                 break;
+            case TANK:
+                tankPresenter.go(view().getContentPanel());
+                break;
+
         }
     }
 }
