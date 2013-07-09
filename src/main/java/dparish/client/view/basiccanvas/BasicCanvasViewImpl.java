@@ -3,6 +3,12 @@ package dparish.client.view.basiccanvas;
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.MouseDownEvent;
+import com.google.gwt.event.dom.client.MouseDownHandler;
+import com.google.gwt.event.dom.client.MouseMoveEvent;
+import com.google.gwt.event.dom.client.MouseMoveHandler;
+import com.google.gwt.event.dom.client.MouseUpEvent;
+import com.google.gwt.event.dom.client.MouseUpHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
@@ -34,6 +40,9 @@ public class BasicCanvasViewImpl extends Composite implements BasicCanvasView {
     @UiField
     Label rotateCenter;
 
+    @UiField
+    Label dragAndDrop;
+
     private Presenter presenter;
 
     private Canvas canvas;
@@ -51,6 +60,25 @@ public class BasicCanvasViewImpl extends Composite implements BasicCanvasView {
         canvas.setCoordinateSpaceHeight(500);
         canvas.setCoordinateSpaceWidth(500);
         worker = new BasicCanvasWorker(canvas);
+
+        canvas.addMouseMoveHandler(new MouseMoveHandler() {
+            @Override
+            public void onMouseMove(MouseMoveEvent mouseMoveEvent) {
+                worker.mouseMoved(mouseMoveEvent);
+            }
+        });
+        canvas.addMouseDownHandler(new MouseDownHandler() {
+            @Override
+            public void onMouseDown(MouseDownEvent mouseDownEvent) {
+                worker.mouseDown(mouseDownEvent);
+            }
+        });
+        canvas.addMouseUpHandler(new MouseUpHandler() {
+            @Override
+            public void onMouseUp(MouseUpEvent mouseUpEvent) {
+                worker.mouseUp(mouseUpEvent);
+            }
+        });
     }
 
     @Override
@@ -76,7 +104,14 @@ public class BasicCanvasViewImpl extends Composite implements BasicCanvasView {
         worker.rotateCenter();
     }
 
+    @UiHandler("dragAndDrop")
+    public void onDragAndDropClicked(ClickEvent e) {
+        worker.drawRectangle();
+    }
+
     private void clearAll() {
         worker.clear();
     }
+
+
 }

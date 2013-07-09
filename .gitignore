@@ -1,8 +1,9 @@
 target/
-sandbox/sandbox.iml
-sandbox/sandbox.ipr
-sandbox/sandbox.iws
+sandbox.iml
+sandbox.ipr
+sandbox.iws
 .settings/
 .project
 .classpath
 *.launch
+projectF*/

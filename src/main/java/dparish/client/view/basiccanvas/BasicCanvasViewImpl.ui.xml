@@ -11,6 +11,8 @@
             <g:Label ui:field="rotate" text="{messages.rotate}" styleName="{res.css.button} {res.css.floatLeft}"/>
             <g:Label ui:field="rotateCenter" text="{messages.rotateAroundCenter}"
                      styleName="{res.css.button} {res.css.floatLeft}"/>
+            <g:Label ui:field="dragAndDrop" text="{messages.dragAndDrop}"
+                     styleName="{res.css.button} {res.css.floatLeft}"/>
             <g:SimplePanel styleName="{res.css.clear}"/>
         </g:FlowPanel>
         <g:SimplePanel ui:field="canvasContainer"/>

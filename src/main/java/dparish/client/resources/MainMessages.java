@@ -49,4 +49,7 @@ public interface MainMessages extends Messages {
 
     @Messages.DefaultMessage("Stop")
     String stop();
+
+    @Messages.DefaultMessage("Drag and Drop")
+    String dragAndDrop();
 }
