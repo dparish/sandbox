@@ -10,5 +10,6 @@
             <g:SimplePanel styleName="{res.css.clear}"/>
         </g:FlowPanel>
         <g:SimplePanel ui:field="canvasContainer"/>
+        <g:SimplePanel ui:field="imageContainer" visible="false"/>
     </g:FlowPanel>
 </ui:UiBinder>

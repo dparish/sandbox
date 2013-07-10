@@ -29,6 +29,10 @@ public class BaseCanvasWorker {
         context.clearRect(0, 0, canvas.getCoordinateSpaceWidth(), canvas.getCoordinateSpaceHeight());
     }
 
+    public Context2d getContext() {
+        return context;
+    }
+
     public void drawRectangle() {
         rectangle.draw();
     }

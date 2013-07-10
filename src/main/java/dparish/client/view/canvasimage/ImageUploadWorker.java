@@ -2,8 +2,6 @@ package dparish.client.view.canvasimage;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.ImageElement;
-import com.google.gwt.user.client.ui.Image;
 import dparish.client.view.basiccanvas.BaseCanvasWorker;
 import dparish.client.widgets.FileReader;
 import dparish.client.widgets.NativeFile;
@@ -15,10 +13,17 @@ import dparish.client.widgets.ProgressEvent;
  */
 public class ImageUploadWorker extends BaseCanvasWorker {
 
-    public ImageUploadWorker(Canvas canvas) {
+    CanvasImageView.Presenter presenter;
+
+    public ImageUploadWorker(Canvas canvas, CanvasImageView.Presenter presenter) {
         super(canvas);
+        this.presenter = presenter;
     }
 
+    /**
+     * Proobably not the best place for this ;)
+     * @param file
+     */
     public void handleUpload(final NativeFile file) {
         if (file == null) {
             GWT.log("file is null");
@@ -45,10 +50,6 @@ public class ImageUploadWorker extends BaseCanvasWorker {
             GWT.log("file is empty");
             return;
         }
-        Image image = new Image();
-        image.setUrl(data);
-        ImageElement imageElement = ImageElement.as(image.getElement());
-        clear();
-        context.drawImage(imageElement, 0 ,0);
+        presenter.uploadSuccess(file, data);
     }
 }

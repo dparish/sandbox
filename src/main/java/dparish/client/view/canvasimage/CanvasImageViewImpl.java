@@ -3,13 +3,17 @@ package dparish.client.view.canvasimage;
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.LoadEvent;
+import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.inject.Inject;
 import dparish.client.resources.CommonResources;
@@ -26,6 +30,8 @@ public class CanvasImageViewImpl extends Composite implements CanvasImageView {
 
     @UiField
     SimplePanel canvasContainer;
+    @UiField
+    SimplePanel imageContainer;
 
     @UiField
     FileUpload uploadFile;
@@ -45,12 +51,27 @@ public class CanvasImageViewImpl extends Composite implements CanvasImageView {
         canvas.setCoordinateSpaceHeight(500);
         canvas.setCoordinateSpaceWidth(500);
         canvasContainer.setWidget(canvas);
-        worker = new ImageUploadWorker(canvas);
     }
 
     @Override
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
+        worker = new ImageUploadWorker(canvas, presenter);
+    }
+
+    @Override
+    public void renderImage(NativeFile file, String data) {
+        final Image image = new Image();
+        image.setUrl(data);
+        imageContainer.setWidget(image);
+        image.addLoadHandler(new LoadHandler() {
+            @Override
+            public void onLoad(LoadEvent event) {
+                ImageElement imageElement = ImageElement.as(image.getElement());
+                worker.clear();
+                worker.getContext().drawImage(imageElement, 0, 0);
+            }
+        });
     }
 
     @UiHandler("uploadFile")
