@@ -58,7 +58,6 @@ public class TankPresenter extends BasePresenter<TankView> implements TankView.P
             tankSprite.x = 0;
             tankSprite.y = 33;
         }
-        GWT.log("ORIENTATION:" + orientation + " radian:" + orientation.getRadian());
 
         tankSprite.angle = orientation.getRadian();
 

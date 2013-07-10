@@ -19,7 +19,8 @@ public interface MainMessages extends Messages {
     @AlternateMessage({
             "WELCOME", "Welcome",
             "BASIC_CANVAS", "Basic Canvas",
-            "TANK", "Tank Game"
+            "TANK", "Tank Game",
+            "CANVAS_IMAGE", "Canvas Image"
     })
     String navLabel(@Select Page page);
 
@@ -52,4 +53,7 @@ public interface MainMessages extends Messages {
 
     @Messages.DefaultMessage("Drag and Drop")
     String dragAndDrop();
+
+    @Messages.DefaultMessage("Upload File")
+    String uploadFile();
 }
