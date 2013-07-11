@@ -10,8 +10,6 @@
         .draggablePanel {
             background-color: white;
             border: grey thin solid;
-            height: 100px;
-            width: 100px;
             position: relative;
             -webkit-user-select: none;
             -khtml-user-select: none;
