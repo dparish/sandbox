@@ -16,4 +16,6 @@ public interface CommonCSS extends CssResource {
     String buttonPanel();
 
     String floatLeft();
+
+    String draggablePanel();
 }

@@ -25,3 +25,8 @@
 .clear {
     clear: both;
 }
+
+.draggablePanel {
+    background-color: white;
+    border: grey thin solid;
+}

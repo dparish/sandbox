@@ -20,6 +20,5 @@
         }
     </ui:style>
     <g:FlowPanel ui:field="content" styleName="{style.content}">
-        <g:SimplePanel ui:field="draggablePanel" styleName="{style.draggablePanel}"/>
     </g:FlowPanel>
 </ui:UiBinder>
