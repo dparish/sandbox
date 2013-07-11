@@ -13,4 +13,7 @@ public interface CanvasResources extends ClientBundle {
 
     @ClientBundle.Source("tanks_sheet.png")
     ImageResource tanksSheet();
+
+    @ClientBundle.Source("mini.jpg")
+    ImageResource mini();
 }

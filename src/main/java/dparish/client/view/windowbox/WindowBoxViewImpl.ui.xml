@@ -1,0 +1,27 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:style>
+        .content {
+            background-color: blue;
+            height: 500px;
+            width: 500px;
+        }
+        .draggablePanel {
+            background-color: white;
+            border: grey thin solid;
+            height: 100px;
+            width: 100px;
+            position: relative;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -o-user-select: none;
+            user-select: none;
+        }
+    </ui:style>
+    <g:FlowPanel ui:field="content" styleName="{style.content}">
+        <g:SimplePanel ui:field="draggablePanel" styleName="{style.draggablePanel}"/>
+    </g:FlowPanel>
+</ui:UiBinder>

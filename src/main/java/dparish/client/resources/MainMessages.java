@@ -20,7 +20,9 @@ public interface MainMessages extends Messages {
             "WELCOME", "Welcome",
             "BASIC_CANVAS", "Basic Canvas",
             "TANK", "Tank Game",
-            "CANVAS_IMAGE", "Canvas Image"
+            "CANVAS_IMAGE", "Canvas Image",
+            "WINDOW_BOX", "Window Box",
+            "IMAGE_CROP", "Image Crop"
     })
     String navLabel(@Select Page page);
 
