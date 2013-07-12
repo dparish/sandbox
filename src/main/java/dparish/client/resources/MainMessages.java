@@ -58,4 +58,7 @@ public interface MainMessages extends Messages {
 
     @Messages.DefaultMessage("Upload File")
     String uploadFile();
+
+    @Messages.DefaultMessage("Copy")
+    String copy();
 }

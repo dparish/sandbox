@@ -3,7 +3,6 @@ package dparish.client.widgets;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.MouseDownEvent;
 import com.google.gwt.event.dom.client.MouseDownHandler;
@@ -12,6 +11,10 @@ import com.google.gwt.event.dom.client.MouseMoveEvent;
 import com.google.gwt.event.dom.client.MouseMoveHandler;
 import com.google.gwt.event.dom.client.MouseUpEvent;
 import com.google.gwt.event.dom.client.MouseUpHandler;
+import com.google.gwt.event.logical.shared.HasValueChangeHandlers;
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
+import com.google.gwt.uibinder.client.UiConstructor;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.web.bindery.event.shared.HandlerRegistration;
@@ -22,7 +25,7 @@ import com.google.web.bindery.event.shared.HandlerRegistration;
  * A resizable window frame.
  * Must be posistioned relatively.
  */
-public class SquareWindowPane extends FlowPanel {
+public class SquareWindowPane extends FlowPanel implements HasValueChangeHandlers<SquareWindowPane.PositionInfo>{
 
     int lastMouseX;
     int lastMouseY;
@@ -56,6 +59,19 @@ public class SquareWindowPane extends FlowPanel {
             }
             return false;
         }
+    }
+
+    public static class PositionInfo {
+        public int left;
+        public int top;
+        public int height;
+    }
+
+    @UiConstructor
+    public SquareWindowPane(int left, int top, int height) {
+        setPanelPosition(left, top);
+        setPanelDimensions(height);
+        getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
     }
 
     @Override
@@ -120,13 +136,17 @@ public class SquareWindowPane extends FlowPanel {
             }
         }, MouseMoveEvent.getType());
         registrations.add(reg);
-
     }
 
-    public SquareWindowPane(int left, int top, int height) {
-        setPanelPosition(left, top);
-        setPanelDimensions(height);
-        getElement().getStyle().setPosition(Style.Position.RELATIVE);
+    /**
+     * Adds a {@link com.google.gwt.event.logical.shared.ValueChangeEvent} handler.
+     *
+     * @param handler the handler
+     * @return the registration for the event
+     */
+    @Override
+    public com.google.gwt.event.shared.HandlerRegistration addValueChangeHandler(ValueChangeHandler<PositionInfo> handler) {
+        return addHandler(handler, ValueChangeEvent.getType());
     }
 
     private void setCursor(MouseEvent event) {
@@ -163,6 +183,18 @@ public class SquareWindowPane extends FlowPanel {
         }
     }
 
+    private PositionInfo getPositionInfo() {
+        PositionInfo info = new PositionInfo();
+        info.height = getPanelHeight();
+        info.left = getPanelLeft();
+        info.top = getPanelTop();
+        return info;
+    }
+
+    private void fireMoveResizeEvent() {
+        ValueChangeEvent.fire(this, getPositionInfo());
+    }
+
     private void setBoxMoving(boolean isMoving) {
         isBoxResizing = false;
         this.isBoxMoving = isMoving;
@@ -180,12 +212,7 @@ public class SquareWindowPane extends FlowPanel {
         return getIntFromPx(getElement().getStyle().getHeight());
     }
 
-    private int getPanelWidth() {
-        return getIntFromPx(getElement().getStyle().getWidth());
-    }
-
     private void setPanelPosition (int left, int top) {
-        GWT.log("left:" + left + " top:" + top);
 
         getElement().getStyle().setLeft(left, Style.Unit.PX);
         getElement().getStyle().setTop(top, Style.Unit.PX);
@@ -258,13 +285,14 @@ public class SquareWindowPane extends FlowPanel {
     private void movePanel(MouseEvent event) {
         int newX = event.getClientX();
         int newY = event.getClientY();
-        int left = getIntFromPx(getElement().getStyle().getLeft());
-        int top = getIntFromPx(getElement().getStyle().getTop());
+        int left = getPanelLeft();
+        int top = getPanelTop();
         left += (newX - lastMouseX);
         top += (newY - lastMouseY);
         setPanelPosition(left, top);
         lastMouseX = newX;
         lastMouseY = newY;
+        fireMoveResizeEvent();
     }
 
     private class MoveHandler {
@@ -308,7 +336,6 @@ public class SquareWindowPane extends FlowPanel {
         int left = getPanelLeft();
         int top = getPanelTop();
 
-        GWT.log("in resize panel for:" + activeCorner);
         switch (activeCorner) {
             case TOP_LEFT_CORNER: {
                 // The bottom right corner needs to stay the same so move, then change the dimensions based off
@@ -377,9 +404,9 @@ public class SquareWindowPane extends FlowPanel {
             }
             case INSIDE_BOX:
             case OUTSIDE_BOX:
-                GWT.log("We should only be on a corner");
                 break;
         }
+        fireMoveResizeEvent();
     }
 
     private int getIntFromPx(String px) {
