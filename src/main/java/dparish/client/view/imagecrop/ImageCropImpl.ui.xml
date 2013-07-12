@@ -29,7 +29,7 @@
         </g:FlowPanel>
         <g:FlowPanel styleName="{style.canvasPanel}">
             <g:SimplePanel ui:field="canvasContainer" styleName="{style.canvasContainer}"/>
-            <widgets:SquareWindowPane left="100" top="100" height="200"
+            <widgets:SquareWindowPane left="100" top="100" height="200" maxX="500" maxY="500"
                                       ui:field="windowPane" styleName="{style.windowPane}"/>
             <g:Image ui:field="image" visible="false"/>
             <g:SimplePanel ui:field="hiddenCanvasContainer" visible="false"/>

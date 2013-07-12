@@ -27,7 +27,7 @@ public class WindowBoxViewImpl extends Composite implements WindowBoxView {
     @Inject
     public WindowBoxViewImpl() {
         initWidget(ourUiBinder.createAndBindUi(this));
-        SquareWindowPane draggablePanel = new SquareWindowPane(10,10,100);
+        SquareWindowPane draggablePanel = new SquareWindowPane(10,10,100, 500, 500);
         draggablePanel.setStyleName(CommonResources.INSTANCE.css().draggablePanel());
         content.add(draggablePanel);
     }

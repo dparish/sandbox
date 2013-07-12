@@ -30,6 +30,10 @@ public class SquareWindowPane extends FlowPanel implements HasValueChangeHandler
     int lastMouseX;
     int lastMouseY;
 
+    // The largest X and Y values for the box to travel w/o bumping into walls.
+    int maxX;
+    int maxY;
+
     // True if the box is being moved (dragged)
     private boolean isBoxMoving = false;
 
@@ -68,10 +72,12 @@ public class SquareWindowPane extends FlowPanel implements HasValueChangeHandler
     }
 
     @UiConstructor
-    public SquareWindowPane(int left, int top, int height) {
+    public SquareWindowPane(int left, int top, int height, int maxX, int maxY) {
         setPanelPosition(left, top);
         setPanelDimensions(height);
         getElement().getStyle().setPosition(Style.Position.ABSOLUTE);
+        this.maxX = maxX;
+        this.maxY = maxY;
     }
 
     @Override
@@ -110,11 +116,11 @@ public class SquareWindowPane extends FlowPanel implements HasValueChangeHandler
             public void onMouseUp(MouseUpEvent event) {
                 if (isBoxMoving) {
                     setBoxMoving(false);
-                    movePanel(event);
+                    movePanel(event.getClientX(), event.getClientY());
                 }
                 if (isBoxResizing) {
                     setBoxResizing(false);
-                    resizePanel(event);
+                    resizePanel(event.getClientX(), event.getClientY());
                 }
             }
         },MouseUpEvent.getType());
@@ -126,10 +132,10 @@ public class SquareWindowPane extends FlowPanel implements HasValueChangeHandler
                 setCursor(event);
                 if (isBoxMoving) {
                     parentPanel.getElement().getStyle().setCursor(Style.Cursor.MOVE);
-                    movePanel(event);
+                    movePanel(event.getClientX(), event.getClientY());
                 }
                 if (isBoxResizing) {
-                    resizePanel(event);
+                    resizePanel(event.getClientX(), event.getClientY());
                 }
                 event.preventDefault();
                 event.stopPropagation();
@@ -280,15 +286,24 @@ public class SquareWindowPane extends FlowPanel implements HasValueChangeHandler
 
     /**
      * Does the work of moving the panel.
-     * @param event
      */
-    private void movePanel(MouseEvent event) {
-        int newX = event.getClientX();
-        int newY = event.getClientY();
+    private void movePanel(int newX, int newY) {
         int left = getPanelLeft();
         int top = getPanelTop();
         left += (newX - lastMouseX);
         top += (newY - lastMouseY);
+        if (left < 0) {
+            left = 0;
+        }
+        if (top < 0) {
+            top = 0;
+        }
+        if ((left + getPanelHeight()) >= maxX) {
+            left = maxX - getPanelHeight()-1;
+        }
+        if ((top + getPanelHeight()) >= maxY) {
+            top = maxY - getPanelHeight()-1;
+        }
         setPanelPosition(left, top);
         lastMouseX = newX;
         lastMouseY = newY;
@@ -324,18 +339,16 @@ public class SquareWindowPane extends FlowPanel implements HasValueChangeHandler
     /**
      * Does the work of resizing the panel.
      */
-    private void resizePanel(MouseEvent event) {
-        int newX = event.getClientX();
-        int newY = event.getClientY();
+    private void resizePanel(int newX, int newY) {
         int xMoved = newX - lastMouseX;
         int yMoved = newY - lastMouseY;
-        lastMouseX = newX;
-        lastMouseY = newY;
+
 
         MoveHandler move = new MoveHandler(xMoved, yMoved);
         int left = getPanelLeft();
         int top = getPanelTop();
 
+        int height = getPanelHeight();
         switch (activeCorner) {
             case TOP_LEFT_CORNER: {
                 // The bottom right corner needs to stay the same so move, then change the dimensions based off
@@ -348,11 +361,10 @@ public class SquareWindowPane extends FlowPanel implements HasValueChangeHandler
 //                break;
                 // left and top both change.
                 // x and y both behave the same.
-                int height = getPanelHeight();
-                setPanelPosition(left + move.moveAmount, top + move.moveAmount);
+                left += move.moveAmount;
+                top += move.moveAmount;
                 height-= move.moveAmount;
                 // why minus, because an increase in size is a negative change to x;
-                setPanelDimensions(height);
                 break;
             }
 
@@ -360,52 +372,58 @@ public class SquareWindowPane extends FlowPanel implements HasValueChangeHandler
                 // This moves the panel up the correct amount
                 // Since the left corner bottom corner should never move
                 // we don't change left EVER. We change top and the height.
-                int height = getPanelHeight();
                 if (move.wasX) {
                     // an increase here is positive to x
-                    setPanelPosition(left, top + move.moveAmount);
+                    top += move.moveAmount;
                     height+= move.moveAmount;
                 } else {
-                    setPanelPosition(left, top + move.moveAmount);
+                    top += move.moveAmount;
                     height-= move.moveAmount;
                 }
                 // why minus, because an increase in size is a negative change to x;
-                setPanelDimensions(height);
                 break;
             }
             case BOTTOM_LEFT_CORNER: {
                 // only the left can change.
-                int height = getPanelHeight();
                 if (move.wasX) {
                     // growth means x is negative and y is positive.
-                    setPanelPosition(left + move.moveAmount, top);
+                    left += move.moveAmount;
                     height-= move.moveAmount;
                 } else {
-                    setPanelPosition(left - move.moveAmount, top);
+                    left -= move.moveAmount;
                     height+= move.moveAmount;
                 }
                 // why minus, because an increase in size is a negative change to x;
-                setPanelDimensions(height);
                 break;
             }
             case BOTTOM_RIGHT_CORNER: {
                 // only the left can change.
-                int height = getPanelHeight();
-                if (move.wasX) {
-                    setPanelPosition(left, top);
-                    height+= move.moveAmount;
-                } else {
-                    setPanelPosition(left, top);
-                    height+= move.moveAmount;
-                }
+                height+= move.moveAmount;
                 // why minus, because an increase in size is a negative change to x;
-                setPanelDimensions(height);
                 break;
             }
             case INSIDE_BOX:
             case OUTSIDE_BOX:
                 break;
         }
+
+        // Check to see if we have gone out of bounds and if so reset....
+        if (left < 0) {
+            left = 0;
+        }
+        if (top < 0) {
+            top = 0;
+        }
+        if (left + height > maxX) {
+            left = maxX - height - 1;
+        }
+        if (top + height > maxY) {
+            top = maxY - height - 1;
+        }
+        setPanelPosition(left,top);
+        setPanelDimensions(height);
+        lastMouseX = newX;
+        lastMouseY = newY;
         fireMoveResizeEvent();
     }
 
