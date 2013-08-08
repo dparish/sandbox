@@ -14,4 +14,24 @@ public interface CalendarCSS extends CssResource {
 
 
     String monthHeading();
+
+    String datePickerDayIsWeekend();
+
+    String datePickerDayIsFiller();
+
+    String datePickerWeekdayLabel();
+
+    String datePickerWeekendLabel();
+
+    String datePickerDayIsValueAndHighlighted();
+
+    String datePickerDayIsHighlighted();
+
+    String datePickerDayIsDisabled();
+
+    String datePickerDayIsValue();
+
+    String datePickerDayIsToday();
+
+    String disabled();
 }

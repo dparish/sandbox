@@ -19,7 +19,7 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
     private CanvasImagePresenter canvasImagePresenter;
     private WindowBoxPresenter windowBoxPresenter;
     private ImageCropPresenter imageCropPresenter;
-    private CalendarPresenter calendarPresenter;
+    private DatePickerPresenter datePickerPresenter;
 
     private static String PAGE_COOKIE = "selectedPage";
 
@@ -27,7 +27,7 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
     public MainPresenter(MainView view, WelcomePresenter welcomePresenter, BasicCanvasPresenter basicCanvasPresenter,
                          TankPresenter tankPresenter, CanvasImagePresenter canvasImagePresenter,
                          WindowBoxPresenter windowBoxPresenter, ImageCropPresenter imageCropPresenter,
-                         CalendarPresenter calendarPresenter) {
+                         DatePickerPresenter datePickerPresenter) {
         super(view);
         this.welcomePresenter = welcomePresenter;
         this.basicCanvasPresenter = basicCanvasPresenter;
@@ -35,7 +35,7 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
         this.canvasImagePresenter = canvasImagePresenter;
         this.windowBoxPresenter = windowBoxPresenter;
         this.imageCropPresenter = imageCropPresenter;
-        this.calendarPresenter = calendarPresenter;
+        this.datePickerPresenter = datePickerPresenter;
 
         view.setPresenter(this);
         onPageSelected(getPageFromCookie());
@@ -63,7 +63,7 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
                 imageCropPresenter.go(view().getContentPanel());
                 break;
             case CALENDAR:
-                calendarPresenter.go(view().getContentPanel());
+                datePickerPresenter.go(view().getContentPanel());
                 break;
         }
     }

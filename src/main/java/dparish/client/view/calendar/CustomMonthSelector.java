@@ -18,6 +18,8 @@ public class CustomMonthSelector extends MonthSelector {
     private Label backwards;
     private Label forwards;
     private Grid grid;
+    private DatePickerView.Presenter datePickerPresenter;
+    private boolean isForwardEnabled = true;
 
     /**
      * Constructor.
@@ -64,7 +66,9 @@ public class CustomMonthSelector extends MonthSelector {
         forwards.setStyleName(CalendarResources.INSTANCE.calendarCss().nextButton());
         forwards.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
-                addMonths(+1);
+                if (isForwardEnabled) {
+                    datePickerPresenter.handleForwardClicked(getModel().getCurrentMonth());
+                }
             }
         });
 
@@ -82,8 +86,31 @@ public class CustomMonthSelector extends MonthSelector {
         initWidget(grid);
     }
 
+    /**
+     * This is only called directly from this view for the back button. Forward is handled first
+     * through the presenter.
+     * @param numMonths
+     */
     @Override
-    protected void addMonths(int numMonths) {
+    public void addMonths(int numMonths) {
         super.addMonths(numMonths);
+        datePickerPresenter.handleNewMonth(getModel().getCurrentMonth());
+    }
+
+    /**
+     * Set's the enabled or disabled status of the forward button.
+     */
+    public void setForwardButtonEnabled(boolean isEnabled) {
+        isForwardEnabled = isEnabled;
+        if (isEnabled) {
+            forwards.removeStyleName(CalendarResources.INSTANCE.calendarCss().disabled());
+        } else {
+            forwards.addStyleName(CalendarResources.INSTANCE.calendarCss().disabled());
+        }
+    }
+
+
+    public void setPresenter(DatePickerView.Presenter presenter) {
+        this.datePickerPresenter = presenter;
     }
 }

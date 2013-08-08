@@ -1,9 +1,13 @@
 package dparish.client.view;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.i18n.client.DateTimeFormatInfo;
+import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -16,9 +20,19 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
 
     private static WelcomeViewImplUiBinder ourUiBinder = GWT.create(WelcomeViewImplUiBinder.class);
 
+    @UiField
+    Label currentLocale;
+
+    @UiField
+    Label startDay;
+
     @Inject
     public WelcomeViewImpl() {
         initWidget(ourUiBinder.createAndBindUi(this));
+        currentLocale.setText(LocaleInfo.getCurrentLocale().getLocaleName());
+        DateTimeFormatInfo dateTimeFormatInfo = LocaleInfo.getCurrentLocale().getDateTimeFormatInfo();
+        String[] weekDays = dateTimeFormatInfo.weekdaysFull();
+        startDay.setText(weekDays[dateTimeFormatInfo.firstDayOfTheWeek()]);
     }
 
     /**

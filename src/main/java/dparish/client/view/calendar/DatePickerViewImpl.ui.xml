@@ -5,8 +5,14 @@
 
     <ui:with field="res" type="dparish.client.resources.CommonResources"/>
 
+    <ui:style>
+        .datePicker {
+
+        }
+    </ui:style>
+
     <g:FlowPanel styleName="{res.css.contentPanel}">
-        <calendar:CustomDatePicker ui:field="datePicker"/>
+        <calendar:CustomDatePicker ui:field="datePicker" styleName="{style.datePicker}"/>
     </g:FlowPanel>
 
 </ui:UiBinder>

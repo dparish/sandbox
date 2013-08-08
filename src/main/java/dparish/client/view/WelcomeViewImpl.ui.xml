@@ -7,5 +7,9 @@
 
     <g:FlowPanel styleName="{res.css.contentPanel}">
         <g:Label text="{messages.welcome}"/>
+        <g:Label styleName="{res.css.floatLeft}">Current Locale: </g:Label>
+        <g:Label ui:field="currentLocale"/>
+        <g:Label styleName="{res.css.floatLeft}">Start Day of Week: </g:Label>
+        <g:Label ui:field="startDay"/>
     </g:FlowPanel>
 </ui:UiBinder>

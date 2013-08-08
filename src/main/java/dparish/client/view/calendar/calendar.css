@@ -1,8 +1,8 @@
-@external datePickerDay;
+@external datePickerDay,datePickerDayIsWeekend,datePickerDayIsFiller, datePickerWeekdayLabel,
+          datePickerWeekendLabel, datePickerDayIsValue, datePickerDayIsDisabled, datePickerDayIsHighlighted,
+          datePickerDayIsValueAndHighlighted, .datePickerDayIsToday;
 
 .datePickerDay {
-    padding: 6px;
-    cursor: pointer;
 }
 
 .nextButton {
@@ -14,16 +14,63 @@
     padding: 0px 4px;
 }
 
+.disabled {
+    opacity: .5;
+}
+
 .monthDisplay {
     text-align: center;
     vertical-align: center;
     white-space: nowrap;
-    font-size: 70%;
+    font-size: 12px;
     font-weight: bold;
     color: blue;
 }
 
 .monthHeading {
-    background: #C3D9FF;
+    background: white;
     width: 100%;
 }
+
+.datePickerDayIsWeekend {
+    background: white;
+}
+
+.datePickerDayIsFiller {
+    opacity: .3;
+}
+
+.datePickerWeekdayLabel,
+.datePickerWeekendLabel {
+    background: white;
+    cursor: default;
+    font-size: 12px !important;
+    font-weight: bold;
+}
+
+.datePickerDayIsToday {
+    border: none;
+    color: blue;
+}
+
+.datePickerDayIsValue {
+    background: #aaccee;
+}
+.datePickerDayIsDisabled {
+    color: #AAAAAA;
+    font-style: italic;
+}
+.datePickerDayIsHighlighted {
+    background: #F0E68C;
+}
+.datePickerDayIsValueAndHighlighted {
+    background: #bbddd9;
+}
+
+.datePickerDay, .datePickerWeekdayLabel, .datePickerWeekendLabel {
+    font-size: 11px;
+    text-align: center;
+    padding: 8px;
+    outline: none;
+}
+
