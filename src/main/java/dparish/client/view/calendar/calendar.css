@@ -1,0 +1,29 @@
+@external datePickerDay;
+
+.datePickerDay {
+    padding: 6px;
+    cursor: pointer;
+}
+
+.nextButton {
+    font-size: 120%;
+    line-height: 1em;
+    color: blue;
+    cursor: hand;
+    cursor: pointer;
+    padding: 0px 4px;
+}
+
+.monthDisplay {
+    text-align: center;
+    vertical-align: center;
+    white-space: nowrap;
+    font-size: 70%;
+    font-weight: bold;
+    color: blue;
+}
+
+.monthHeading {
+    background: #C3D9FF;
+    width: 100%;
+}

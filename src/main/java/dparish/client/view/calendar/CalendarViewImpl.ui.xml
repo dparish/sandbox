@@ -1,0 +1,12 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'
+             xmlns:calendar="urn:import:dparish.client.view.calendar">
+    <ui:with field="messages" type="dparish.client.resources.MainMessages"/>
+
+    <ui:with field="res" type="dparish.client.resources.CommonResources"/>
+
+    <g:FlowPanel styleName="{res.css.contentPanel}">
+        <calendar:CustomDatePicker ui:field="datePicker"/>
+    </g:FlowPanel>
+
+</ui:UiBinder>

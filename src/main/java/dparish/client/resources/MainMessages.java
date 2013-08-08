@@ -22,7 +22,8 @@ public interface MainMessages extends Messages {
             "TANK", "Tank Game",
             "CANVAS_IMAGE", "Canvas Image",
             "WINDOW_BOX", "Window Box",
-            "IMAGE_CROP", "Image Crop"
+            "IMAGE_CROP", "Image Crop",
+            "CALENDAR", "Calendar"
     })
     String navLabel(@Select Page page);
 
