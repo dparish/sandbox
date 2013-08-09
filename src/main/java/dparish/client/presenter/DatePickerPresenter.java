@@ -32,8 +32,13 @@ public class DatePickerPresenter extends BasePresenter<DatePickerView> implement
             return;
         }
         view().setForwardButtonEnabled(false);
+        // next date is now plus one day.
         CalendarUtil.addDaysToDate(nextDate, 1);
-        while (nextDate.getMonth() == currentMonth.getMonth()) {
+
+        Date lastDate = view().getLastDateShown();
+        // last date goes up one because the loop below needs to test the last day as well.
+        CalendarUtil.addDaysToDate(lastDate, 1);
+        while (!CalendarUtil.isSameDate(lastDate, nextDate)) {
             view().setEnabledOnDate(false, nextDate);
             CalendarUtil.addDaysToDate(nextDate,1);
         }

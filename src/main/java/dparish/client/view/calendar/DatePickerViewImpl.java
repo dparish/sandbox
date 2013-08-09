@@ -57,6 +57,14 @@ public class DatePickerViewImpl extends Composite implements DatePickerView {
         datePicker.getCustomMonthSelector().setForwardButtonEnabled(isEnabled);
     }
 
+    /**
+     * Get the last date shown on the calendar.
+     */
+    @Override
+    public Date getLastDateShown() {
+        return datePicker.getLastDate();
+    }
+
     private void styleCalendar() {
         CalendarResources.INSTANCE.calendarCss().ensureInjected();
     }

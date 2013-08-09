@@ -14,14 +14,16 @@ public interface DatePickerView extends View {
     public interface Presenter {
         /**
          * Disable the dates in the calendar if they are after the current date;
+         *
          * @param currentMonth The current month displayed in the date picker.
+         *
          */
         void handleNewMonth(Date currentMonth);
 
-        /**
-         * Handles when forward is clicked.
-         * @param currentlyDisplayedMonth The currently displayed month (NOT the one you get when you click next)
-         */
+            /**
+            * Handles when forward is clicked.
+            * @param currentlyDisplayedMonth The currently displayed month (NOT the one you get when you click next)
+            */
         void handleForwardClicked(Date currentlyDisplayedMonth);
     }
 
@@ -38,5 +40,10 @@ public interface DatePickerView extends View {
      * Set's the enabled or disabled status of the forward button.
      */
     void setForwardButtonEnabled(boolean isEnabled);
+
+    /**
+     * Get the last date shown on the calendar.
+     */
+    Date getLastDateShown();
 }
 
