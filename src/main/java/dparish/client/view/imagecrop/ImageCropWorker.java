@@ -2,7 +2,6 @@ package dparish.client.view.imagecrop;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.canvas.dom.client.Context2d;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.ImageElement;
 import com.google.gwt.event.dom.client.LoadEvent;
 import com.google.gwt.event.dom.client.LoadHandler;
@@ -82,14 +81,26 @@ public class ImageCropWorker extends BaseCanvasWorker {
     public String getImageDataURL() {
         // Grab the portion of the image that is highlighted and draw it on the new context.
         clearHiddenCanvas();
+
+        // Get original width so we can go back if needed.
+        int canvasWidth = hiddenCanvas.getCoordinateSpaceWidth();
+        int canvasHeight = hiddenCanvas.getCoordinateSpaceHeight();
+
+        // Resize canvas to 512x512 so we limit the size of what we grab.
+        hiddenCanvas.setCoordinateSpaceHeight(512);
+        hiddenCanvas.setCoordinateSpaceWidth(512);
         hiddenContext.drawImage(canvas.getCanvasElement(),  lastPosition.left, lastPosition.top,lastPosition.height,
                 lastPosition.height,
                 0,0,hiddenCanvas.getCoordinateSpaceHeight(), hiddenCanvas.getCoordinateSpaceWidth());
-        String dataUrl = hiddenCanvas.toDataUrl("jpg");
+
+        String dataUrl = hiddenCanvas.toDataUrl("image/jpeg");
         clearHiddenCanvas();
+        hiddenCanvas.setCoordinateSpaceHeight(canvasHeight);
+        hiddenCanvas.setCoordinateSpaceWidth(canvasWidth);
         drawSourceImage();
         return dataUrl;
     }
+
 
     private void handleImageSize() {
         aspectRatio = (double) sourceImage.getHeight() / sourceImage.getWidth();
@@ -127,7 +138,6 @@ public class ImageCropWorker extends BaseCanvasWorker {
         // Draw a grey rectangle behind image, this is so opacity won't bleed to image.
         // TODO: Should be exactly 50% grey.
         context.setFillStyle("white");
-        GWT.log("image:" + startX + ":" +  startY+ ":" + sourceImage.getWidth()+ ":" + sourceImage.getHeight());
         context.fillRect(startX, startY, sourceImage.getWidth(), sourceImage.getHeight());
 
 

@@ -10,8 +10,9 @@ import dparish.client.view.View;
 public interface ImageCropView extends View {
 
     interface Presenter {
-
+        void saveImage(String data);
     }
 
     void setPresenter(Presenter p);
+    void displaySaveMessage(String message, boolean isError);
 }

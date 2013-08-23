@@ -10,12 +10,8 @@ import dparish.client.presenter.MainPresenter;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class sandbox implements EntryPoint {
-  /**
-   * Create a remote service proxy to talk to the server-side Greeting service.
-   */
-  private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
 
-  private final SandboxInjector injectModule = GWT.create(SandboxInjector.class);
+    private final SandboxInjector injectModule = GWT.create(SandboxInjector.class);
 
   /**
    * This is the entry point method.

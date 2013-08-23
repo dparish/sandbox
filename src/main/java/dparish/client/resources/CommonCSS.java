@@ -18,4 +18,6 @@ public interface CommonCSS extends CssResource {
     String floatLeft();
 
     String draggablePanel();
+
+    String errorMessage();
 }

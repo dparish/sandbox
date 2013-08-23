@@ -16,14 +16,15 @@
         .canvasPanel {
             position: relative;
         }
-        .newImage {
+        .saveMessage {
             position: relative;
+            top: 510px;
         }
     </ui:style>
 
     <g:FlowPanel styleName="{res.css.contentPanel}">
-        <g:FlowPanel styleName="{res.css.buttonPanel}" visible="false">
-            <g:Label ui:field="copy" text="{messages.copy}"
+        <g:FlowPanel styleName="{res.css.buttonPanel}">
+            <g:Label ui:field="save" text="{messages.saveCrop}"
                      styleName="{res.css.button} {res.css.floatLeft}"/>
             <g:SimplePanel styleName="{res.css.clear}"/>
         </g:FlowPanel>
@@ -34,8 +35,6 @@
             <g:Image ui:field="image" visible="false"/>
             <g:SimplePanel ui:field="hiddenCanvasContainer" visible="false"/>
         </g:FlowPanel>
-        <g:SimplePanel styleName="{style.newImage}">
-            <g:Image ui:field="newImage"/>
-        </g:SimplePanel>
+        <g:Label ui:field="saveMessage" styleName="{style.saveMessage}"/>
     </g:FlowPanel>
 </ui:UiBinder>

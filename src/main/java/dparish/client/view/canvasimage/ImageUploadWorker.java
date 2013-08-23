@@ -21,15 +21,13 @@ public class ImageUploadWorker extends BaseCanvasWorker {
     }
 
     /**
-     * Proobably not the best place for this ;)
-     * @param file
+     * Reads the file from the browser via the html5 file reader. Then calls the onLoad callback upon success.
      */
     public void handleUpload(final NativeFile file) {
         if (file == null) {
             GWT.log("file is null");
             return;
         }
-        GWT.log("file name:" + file.getName());
         FileReader reader = FileReader.create();
         reader.readAsDataURL(file, new ProgressCallback() {
             @Override
@@ -39,7 +37,6 @@ public class ImageUploadWorker extends BaseCanvasWorker {
 
             @Override
             public void onLoad(ProgressEvent e) {
-                GWT.log("upload success");
                 onUploadSuccess(file, e.getResult());
             }
         });

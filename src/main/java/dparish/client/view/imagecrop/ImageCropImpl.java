@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.inject.Inject;
 import dparish.client.resources.CommonResources;
+import dparish.client.resources.MainMessages;
 import dparish.client.widgets.SquareWindowPane;
 
 /**
@@ -39,10 +40,10 @@ public class ImageCropImpl extends Composite implements ImageCropView {
     SquareWindowPane windowPane;
 
     @UiField
-    Label copy;
+    Label save;
 
     @UiField
-    Image newImage;
+    Label saveMessage;
 
     private Presenter presenter;
 
@@ -51,14 +52,6 @@ public class ImageCropImpl extends Composite implements ImageCropView {
     private Canvas hiddenCanvas;
 
     private ImageCropWorker worker;
-
-    private void sizeCanvas(Canvas canvas) {
-        canvas.setStyleName(CommonResources.INSTANCE.css().canvas());
-        canvas.setHeight("500px");
-        canvas.setWidth("500px");
-        canvas.setCoordinateSpaceHeight(500);
-        canvas.setCoordinateSpaceWidth(500);
-    }
 
     @Inject
     public ImageCropImpl() {
@@ -86,9 +79,30 @@ public class ImageCropImpl extends Composite implements ImageCropView {
         // worker.clip();
     }
 
-    @UiHandler("copy")
+    @Override
+    public void displaySaveMessage(String message, boolean isError) {
+        saveMessage.removeStyleName(CommonResources.INSTANCE.css().errorMessage());
+
+        if (isError) {
+            saveMessage.setText(MainMessages.INSTANCE.errorSavingFile(message));
+            saveMessage.addStyleName(CommonResources.INSTANCE.css().errorMessage());
+        } else {
+            saveMessage.setText(MainMessages.INSTANCE.savedFile(message));
+        }
+    }
+
+    @UiHandler("save")
     public void copyClicked(ClickEvent click) {
         String url = worker.getImageDataURL();
-        newImage.setUrl(url);
+        presenter.saveImage(url);
     }
+
+    private void sizeCanvas(Canvas canvas) {
+        canvas.setStyleName(CommonResources.INSTANCE.css().canvas());
+        canvas.setHeight("500px");
+        canvas.setWidth("500px");
+        canvas.setCoordinateSpaceHeight(500);
+        canvas.setCoordinateSpaceWidth(500);
+    }
+
 }

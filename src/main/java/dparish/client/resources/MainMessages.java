@@ -60,6 +60,12 @@ public interface MainMessages extends Messages {
     @Messages.DefaultMessage("Upload File")
     String uploadFile();
 
-    @Messages.DefaultMessage("Copy")
-    String copy();
+    @Messages.DefaultMessage("Save Crop")
+    String saveCrop();
+
+    @Messages.DefaultMessage("Saved File: {0}")
+    String savedFile(String fileName);
+
+    @Messages.DefaultMessage("Error saving file:{0}")
+    String errorSavingFile(String error);
 }
