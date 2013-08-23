@@ -63,8 +63,12 @@ public class ImageCropWorker extends BaseCanvasWorker {
         // The canvas dimensions will be different from the div dimensions so we have to calculate our way out
         // of this
         if (canvasDisplayHeight == null) {
+            // This if is here because getOffset is EXPENSIVE and we only want to do it once!!
             canvasDisplayHeight = canvas.getElement().getOffsetHeight();
         }
+
+        // re-calculate the left, top and height values based off the ration of the
+        // canvas coordiates (the image pixel density) to the actual browser canvas height.
         double heightRatio = (double) canvas.getCoordinateSpaceHeight() / canvasDisplayHeight;
         Double newLeft = (double) positionInfo.left * heightRatio;
         positionInfo.left = newLeft.intValue();
@@ -73,13 +77,16 @@ public class ImageCropWorker extends BaseCanvasWorker {
         Double newHeight = (double) positionInfo.height * heightRatio;
         positionInfo.height = newHeight.intValue();
 
+        // Now draw the image on the visible canvase. This will put the image on the visible canvas without an opacity.
         context.drawImage(hiddenCanvas.getCanvasElement(), positionInfo.left, positionInfo.top, positionInfo.height, positionInfo.height,
                 positionInfo.left, positionInfo.top, positionInfo.height, positionInfo.height);
+
         lastPosition = positionInfo;
     }
 
     public String getImageDataURL() {
         // Grab the portion of the image that is highlighted and draw it on the new context.
+        // We are resetting the canvas here as we will be using it for the final crop size.
         clearHiddenCanvas();
 
         // Get original width so we can go back if needed.
@@ -89,11 +96,16 @@ public class ImageCropWorker extends BaseCanvasWorker {
         // Resize canvas to 512x512 so we limit the size of what we grab.
         hiddenCanvas.setCoordinateSpaceHeight(512);
         hiddenCanvas.setCoordinateSpaceWidth(512);
+
+        // the lastPosition is where the crop window is located.
         hiddenContext.drawImage(canvas.getCanvasElement(),  lastPosition.left, lastPosition.top,lastPosition.height,
                 lastPosition.height,
                 0,0,hiddenCanvas.getCoordinateSpaceHeight(), hiddenCanvas.getCoordinateSpaceWidth());
 
+        // retrieve the data url of the original image.
         String dataUrl = hiddenCanvas.toDataUrl("image/jpeg");
+
+        // Set the canvas back to holding the original image at the original size without a crop.
         clearHiddenCanvas();
         hiddenCanvas.setCoordinateSpaceHeight(canvasHeight);
         hiddenCanvas.setCoordinateSpaceWidth(canvasWidth);
@@ -111,11 +123,19 @@ public class ImageCropWorker extends BaseCanvasWorker {
             biggestSide = sourceImage.getWidth();
             smallestSide = sourceImage.getHeight();
         }
+
+        // First find the biggest side.
         biggestSide = (sourceImage.getHeight() > sourceImage.getWidth()) ? sourceImage.getHeight() : sourceImage.getWidth();
+
+        // Now set the canvas internal height and width to the largest size found.
         canvas.setCoordinateSpaceHeight(biggestSide);
         canvas.setCoordinateSpaceWidth(biggestSide);
+
+        // Do the same for the hidden canvas.
         hiddenCanvas.setCoordinateSpaceHeight(biggestSide);
         hiddenCanvas.setCoordinateSpaceWidth(biggestSide);
+
+        // Now find the margin so we can show the image with letterboxes if needed.
         if (aspectRatio < 1) {
             // height is the smaller side so the black bars are vertical (x changes y is zero)
             Double margin = (biggestSide * (1 - aspectRatio)) / 2;

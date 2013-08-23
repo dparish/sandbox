@@ -33,6 +33,4 @@ public class GwtTestsandbox extends GWTTestCase {
     ServiceDefTarget target = (ServiceDefTarget) greetingService;
     target.setServiceEntryPoint(GWT.getModuleBaseURL() + "sandbox/greet");
   }
-
-
 }
