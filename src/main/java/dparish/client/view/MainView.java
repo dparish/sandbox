@@ -11,6 +11,8 @@ import com.google.inject.ImplementedBy;
 public interface MainView extends View {
 
     void setPresenter (Presenter presenter);
+    String getCookie(String cookieName);
+    void setCookie(String cookieName, String value);
     HasWidgets getContentPanel();
 
     interface Presenter {

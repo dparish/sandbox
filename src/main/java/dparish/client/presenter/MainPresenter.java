@@ -1,7 +1,6 @@
 package dparish.client.presenter;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.Cookies;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import dparish.client.view.MainView;
@@ -69,11 +68,11 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
     }
 
     private void setCookie(Page page) {
-        Cookies.setCookie(PAGE_COOKIE, page.name());
+        view().setCookie(PAGE_COOKIE, page.name());
     }
 
     private Page getPageFromCookie() {
-        String pageName = Cookies.getCookie(PAGE_COOKIE);
+        String pageName = view().getCookie(PAGE_COOKIE);
         if (pageName == null) {
             return Page.WELCOME;
         }

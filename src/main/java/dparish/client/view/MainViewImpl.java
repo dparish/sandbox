@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.user.client.Cookies;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
@@ -58,6 +59,16 @@ public class MainViewImpl extends Composite implements MainView {
     @Override
     public void setPresenter(Presenter p) {
         presenter = p;
+    }
+
+    @Override
+    public String getCookie(String cookieName) {
+        return Cookies.getCookie(cookieName);
+    }
+
+    @Override
+    public void setCookie(String cookieName, String value) {
+        Cookies.setCookie(cookieName, value);
     }
 
     private void drawNav() {
