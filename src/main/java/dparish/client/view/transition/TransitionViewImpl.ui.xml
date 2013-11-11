@@ -1,0 +1,83 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+
+    <ui:with field="messages" type="dparish.client.resources.MainMessages"/>
+
+    <ui:style type="dparish.client.view.transition.TransitionViewImpl.Style">
+        .hoverLabel {
+            opacity: 1;
+            color: red;
+            transition: opacity 0.5s linear;
+            cursor: pointer;
+            padding: 20px;
+        }
+        .hoverLabel:hover {
+            opacity: 0;
+        }
+        .clickToMoveRight {
+            animation-duration: 3s;
+            animation-name: moveRight;
+            -webkit-animation-duration: 3s;
+            -webkit-animation-name: moveRight;
+            -moz-animation-duration: 3s;
+            -moz-animation-name: moveRight;
+        }
+        .clickToMoveLeft {
+            animation-duration: 3s;
+            animation-name: moveLeft;
+            -webkit-animation-duration: 3s;
+            -webkit-animation-name: moveLeft;
+            -moz-animation-duration: 3s;
+            -moz-animation-name: moveLeft;
+        }
+        .clickToMove {
+            animation-fill-mode: forwards;
+            -webkit-animation-fill-mode: forwards;
+            -moz-animation-fill-mode: forwards;
+            cursor: pointer;
+            position: relative;
+            top: 50px;
+        }
+        @-webkit-keyframes moveRight {
+          from {
+            left: 0;
+          }
+
+          to {
+            left: 200px;
+          }
+        }
+        @-webkit-keyframes moveLeft {
+          from {
+            left: 200px;
+          }
+
+          to {
+            left: 0;
+          }
+        }
+        @-moz-keyframes moveRight {
+          from {
+            left: 0;
+          }
+
+          to {
+            left: 200px;
+          }
+        }
+        @-moz-keyframes moveLeft {
+          from {
+            left: 200px;
+          }
+
+          to {
+            left: 0;
+          }
+        }
+    </ui:style>
+    <g:FlowPanel>
+        <g:Label text="{messages.hoverOverMe}" ui:field="hoverLabel" styleName="{style.hoverLabel}"/>
+        <g:Label ui:field="statusLabel"/>
+        <g:Label ui:field="moveLabel" text="{messages.clickToMove}" styleName="{style.clickToMove}"/>
+    </g:FlowPanel>
+</ui:UiBinder>

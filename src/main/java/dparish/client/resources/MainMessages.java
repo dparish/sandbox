@@ -23,7 +23,8 @@ public interface MainMessages extends Messages {
             "CANVAS_IMAGE", "Canvas Image",
             "WINDOW_BOX", "Window Box",
             "IMAGE_CROP", "Image Crop",
-            "CALENDAR", "Calendar"
+            "CALENDAR", "Calendar",
+            "TRANSITION", "CSS Events"
     })
     String navLabel(@Select Page page);
 
@@ -68,4 +69,19 @@ public interface MainMessages extends Messages {
 
     @Messages.DefaultMessage("Error saving file:{0}")
     String errorSavingFile(String error);
+
+    @Messages.DefaultMessage("Hover over me and I''ll disappear")
+    String hoverOverMe();
+
+    @Messages.DefaultMessage("Hover Over ended")
+    String hoverOverEnded();
+
+    @Messages.DefaultMessage("Hover out ended")
+    String hoverOutEnded();
+
+    @Messages.DefaultMessage("Click and I''ll move")
+    String clickToMove();
+
+    @Messages.DefaultMessage("I''m moving")
+    String moving();
 }
