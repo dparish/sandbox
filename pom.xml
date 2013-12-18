@@ -27,6 +27,16 @@
           <version>1.5.0</version>
       </dependency>
       <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-java</artifactId>
+          <version>2.38.0</version>
+      </dependency>
+      <dependency>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-firefox-driver</artifactId>
+          <version>2.38.0</version>
+      </dependency>
+      <dependency>
           <groupId>com.google.inject</groupId>
           <artifactId>guice</artifactId>
           <version>3.0</version>
@@ -101,15 +111,35 @@
             </goals>
           </execution>
         </executions>
-        <!-- Plugin configuration. There are many available options, see 
-          gwt-maven-plugin documentation at codehaus.org -->
         <configuration>
-          <runTarget>sandbox.html</runTarget>
+                <module>dparish.sandbox</module>
+            <runTarget>sandbox.html</runTarget>
           <hostedWebapp>${webappDirectory}</hostedWebapp>
           <i18nMessagesBundle>dparish.client.Messages</i18nMessagesBundle>
         </configuration>
       </plugin>
-
+        <!--
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>gwt-maven-plugin</artifactId>
+            <version>2.5.1</version>
+            <executions>
+                <execution>
+                    <configuration>
+                        <module>com.mycompany.gwt.Module</module>
+                    </configuration>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <runTarget>sandbox.html</runTarget>
+                <hostedWebapp>${webappDirectory}</hostedWebapp>
+                <i18nMessagesBundle>dparish.client.Messages</i18nMessagesBundle>
+            </configuration>
+        </plugin>
+        -->
       <!-- Copy static web files before executing gwt:run -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

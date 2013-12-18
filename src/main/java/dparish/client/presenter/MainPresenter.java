@@ -21,6 +21,8 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
     private DatePickerPresenter datePickerPresenter;
     private TransitionPresenter transitionPresenter;
 
+    public static Page currentPage;
+
     private static String PAGE_COOKIE = "selectedPage";
 
     @Inject
@@ -45,6 +47,8 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
     @Override
     public void onPageSelected(Page page) {
         setCookie(page);
+        MainPresenter.currentPage = page;
+
         switch (page) {
             case WELCOME:
                 welcomePresenter.go(view().getContentPanel());

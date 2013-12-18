@@ -1,6 +1,7 @@
 package dparish.client.view;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.i18n.client.DateTimeFormatInfo;
 import com.google.gwt.i18n.client.LocaleInfo;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -10,6 +11,8 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import dparish.client.util.ContextAwareRepeatingCommand;
+import dparish.client.util.Logger;
 
 /**
  * @author dparish
@@ -43,5 +46,17 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
     @Override
     public Widget asWidget() {
         return this;
+    }
+
+    @Override
+    public void render() {
+        Scheduler.get().scheduleFixedDelay(new ContextAwareRepeatingCommand() {
+            @Override
+            public boolean run() {
+                Logger.debug("running scheduled task");
+                return true;
+            }
+        }, 5000);
+
     }
 }

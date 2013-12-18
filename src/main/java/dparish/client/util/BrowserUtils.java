@@ -1,6 +1,7 @@
-package dparish.client;
+package dparish.client.util;
 
 import com.google.gwt.dom.client.Element;
+import dparish.client.CssEventHandler;
 
 /**
  * Collection of helper methods for the browser.

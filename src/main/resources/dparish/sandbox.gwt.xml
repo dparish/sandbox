@@ -20,6 +20,8 @@
 
   <inherits name="com.google.gwt.i18n.CldrLocales"/>
 
+    <inherits name="com.google.gwt.user.Debug"/>
+
   <!-- English language, independent of country -->
 
   <extend-property name="locale" values="en"/>
@@ -28,7 +30,6 @@
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='dparish.client.sandbox' />
-
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client' />

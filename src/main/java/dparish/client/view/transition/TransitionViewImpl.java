@@ -14,7 +14,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.inject.Inject;
-import dparish.client.BrowserUtils;
+import dparish.client.util.BrowserUtils;
 import dparish.client.CssEventHandler;
 import dparish.client.resources.MainMessages;
 
