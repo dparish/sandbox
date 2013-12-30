@@ -6,10 +6,13 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
+import com.google.web.bindery.event.shared.EventBus;
+import com.google.web.bindery.event.shared.testing.CountingEventBus;
 import dparish.client.presenter.MainPresenter;
 import dparish.client.view.MainView;
 import org.jukito.BindingsCollector;
 import org.jukito.JukitoModule;
+import org.jukito.TestScope;
 
 /**
  * @author dparish
@@ -21,7 +24,8 @@ import org.jukito.JukitoModule;
 public class SandboxTestModule extends JukitoModule {
     @Override
     protected void configureTest() {
-        bind(MainView.Presenter.class).to(MainPresenter.class);
+        bind(MainView.Presenter.class).to(MainPresenter.class).in(TestScope.SINGLETON);
+        bind(EventBus.class).to(CountingEventBus.class).in(TestScope.SINGLETON);
     }
 
     @Provides

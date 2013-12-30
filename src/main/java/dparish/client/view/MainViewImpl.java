@@ -71,6 +71,11 @@ public class MainViewImpl extends Composite implements MainView {
         Cookies.setCookie(cookieName, value);
     }
 
+    @Override
+    public void setPageSelected(Page page) {
+        this.ensureDebugId(page.name());
+    }
+
     private void drawNav() {
         for (final Page page:Page.values()) {
             Label navItem = new Label(MainMessages.INSTANCE.navLabel(page));

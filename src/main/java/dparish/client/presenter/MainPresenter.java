@@ -48,6 +48,8 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
     public void onPageSelected(Page page) {
         setCookie(page);
         MainPresenter.currentPage = page;
+        // Mainly used to set the debug id
+        view().setPageSelected(page);
 
         switch (page) {
             case WELCOME:

@@ -50,7 +50,7 @@ public class WelcomeViewImpl extends Composite implements WelcomeView {
 
     @Override
     public void render() {
-        Scheduler.get().scheduleFixedDelay(new ContextAwareRepeatingCommand() {
+        Scheduler.get().scheduleFixedDelay(new ContextAwareRepeatingCommand("Page switch test repeating command") {
             @Override
             public boolean run() {
                 Logger.debug("running scheduled task");

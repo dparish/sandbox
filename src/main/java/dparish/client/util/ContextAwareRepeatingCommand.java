@@ -18,6 +18,7 @@ public abstract class ContextAwareRepeatingCommand implements Scheduler.Repeatin
     }
 
     public ContextAwareRepeatingCommand(String commandName) {
+        this();
         this.commandName = commandName;
     }
 

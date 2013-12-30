@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
  */
 public class WebDriverHelper {
 
-    public static final String URL = "http://localhost:8888/sandbox.html";
+    public static final String URL = "http://localhost:8080/sandbox.html";
 
     WebDriver driver;
 
@@ -20,7 +20,7 @@ public class WebDriverHelper {
     }
 
     public WebElement presenceOfElementLocated(By by) {
-        WebDriverWait wait = new WebDriverWait(driver, 5000);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
         return wait.until(ExpectedConditions.presenceOfElementLocated(by));
     }
 }

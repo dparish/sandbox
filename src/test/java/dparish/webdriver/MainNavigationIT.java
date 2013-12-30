@@ -11,12 +11,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 /**
  * @author dparish
  */
-public class MainNavigationTest  {
+public class MainNavigationIT {
 
     WebDriver driver;
     WebDriverHelper helper;
 
-    public MainNavigationTest() {
+    public MainNavigationIT() {
         driver = new FirefoxDriver();
         helper = new WebDriverHelper(driver);
     }
@@ -33,6 +33,6 @@ public class MainNavigationTest  {
 
     @Test
     public void testSuccess() {
-        helper.presenceOfElementLocated(By.ById.id(Page.WELCOME.name()));
+        helper.presenceOfElementLocated(By.ById.id("gwt-debug-" + Page.WELCOME.name()));
     }
 }

@@ -14,6 +14,7 @@ public interface MainView extends View {
     String getCookie(String cookieName);
     void setCookie(String cookieName, String value);
     HasWidgets getContentPanel();
+    void setPageSelected(Page page);
 
     interface Presenter {
         void onPageSelected(Page page);
