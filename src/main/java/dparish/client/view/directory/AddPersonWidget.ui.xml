@@ -1,0 +1,35 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+             xmlns:g='urn:import:com.google.gwt.user.client.ui'>
+    <ui:style>
+        .nameBox {
+        }
+        .fieldName {
+            font-weight: bold;
+            text-align: right;
+            width: 90px;
+        }
+    </ui:style>
+
+    <ui:with field="messages" type="dparish.client.resources.MainMessages"/>
+
+    <g:HTMLPanel>
+        <table>
+            <tr>
+                <td class="{style.fieldName}"><g:Label text="{messages.firstName}"/></td>
+                <td><g:TextBox ui:field="firstName" styleName="{style.nameBox}"/></td>
+            </tr>
+            <tr>
+                <td class="{style.fieldName}"><g:Label text="{messages.lastName}"/></td>
+                <td><g:TextBox ui:field="lastName" styleName="{style.nameBox}"/></td>
+            </tr>
+            <tr>
+                <td class="{style.fieldName}"><g:Label text="{messages.phone}"/></td>
+                <td><g:TextBox ui:field="phoneNumber" styleName="{style.nameBox}"/></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><g:Button ui:field="add">Add</g:Button></td>
+            </tr>
+        </table>
+    </g:HTMLPanel>
+</ui:UiBinder>

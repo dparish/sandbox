@@ -20,6 +20,7 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
     private ImageCropPresenter imageCropPresenter;
     private DatePickerPresenter datePickerPresenter;
     private TransitionPresenter transitionPresenter;
+    private DirectoryPresenter directoryPresenter;
 
     public static Page currentPage;
 
@@ -30,7 +31,8 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
                          TankPresenter tankPresenter, CanvasImagePresenter canvasImagePresenter,
                          WindowBoxPresenter windowBoxPresenter, ImageCropPresenter imageCropPresenter,
                          DatePickerPresenter datePickerPresenter,
-                         TransitionPresenter transitionPresenter) {
+                         TransitionPresenter transitionPresenter,
+                         DirectoryPresenter directoryPresenter) {
         super(view);
         this.welcomePresenter = welcomePresenter;
         this.basicCanvasPresenter = basicCanvasPresenter;
@@ -40,6 +42,7 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
         this.imageCropPresenter = imageCropPresenter;
         this.datePickerPresenter = datePickerPresenter;
         this.transitionPresenter = transitionPresenter;
+        this.directoryPresenter = directoryPresenter;
 
         view.setPresenter(this);
         onPageSelected(getPageFromCookie());
@@ -76,6 +79,8 @@ public class MainPresenter extends BasePresenter<MainView> implements MainView.P
             case TRANSITION:
                 transitionPresenter.go(view().getContentPanel());
                 break;
+            case DIRECTORY:
+                directoryPresenter.go(view().getContentPanel());
         }
     }
 

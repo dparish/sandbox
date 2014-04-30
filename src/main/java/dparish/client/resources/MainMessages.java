@@ -1,12 +1,12 @@
 package dparish.client.resources;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.i18n.client.Messages;
 import dparish.client.view.Page;
 
 /**
  * @author dparish
- *         \
+ *
  */
 public interface MainMessages extends Messages {
 
@@ -24,7 +24,8 @@ public interface MainMessages extends Messages {
             "WINDOW_BOX", "Window Box",
             "IMAGE_CROP", "Image Crop",
             "CALENDAR", "Calendar",
-            "TRANSITION", "CSS Events"
+            "TRANSITION", "CSS Events",
+            "DIRECTORY", "Directory"
     })
     String navLabel(@Select Page page);
 
@@ -84,4 +85,19 @@ public interface MainMessages extends Messages {
 
     @Messages.DefaultMessage("I''m moving")
     String moving();
+
+    @DefaultMessage("Please enter a first name")
+    String enterFirstName();
+
+    @Messages.DefaultMessage("Invalid phone format")
+    String invalidPhoneFormat();
+
+    @DefaultMessage("First Name")
+    String firstName();
+
+    @DefaultMessage("Last Name")
+    String lastName();
+
+    @DefaultMessage("Phone")
+    String phone();
 }
